@@ -4,14 +4,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Entity
-public class Investimento {
-
+public class Simulacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "clienteId", nullable = false)
@@ -22,11 +22,14 @@ public class Investimento {
     private Produto produto;
 
     @Column(nullable = false)
-    private Double valor;
+    private Double valorInvestido;
 
     @Column(nullable = false)
-    private Double rentabilidadeEfetiva;
+    private Double valorFinal;
 
     @Column(nullable = false)
-    private LocalDateTime dataInvestimento;
+    private Integer prazoMeses;
+
+    @Column(nullable = false)
+    private LocalDateTime dataSimulacao;
 }
