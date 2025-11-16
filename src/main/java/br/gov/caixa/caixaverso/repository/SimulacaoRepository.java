@@ -3,8 +3,11 @@ package br.gov.caixa.caixaverso.repository;
 import br.gov.caixa.caixaverso.dto.simulacao.SimulacaoFiltroDto;
 import br.gov.caixa.caixaverso.model.Simulacao;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,5 +46,16 @@ public class SimulacaoRepository implements PanacheRepository<Simulacao> {
         }
 
         return find(query, params).list();
+    }
+
+    public List<Simulacao> buscarPorData(LocalDate data) {
+
+        LocalDateTime inicio = data.atStartOfDay(); // 00:00 do dia atual até 00:00 do dia seguinte
+        LocalDateTime fim = inicio.plusDays(1);
+
+        return list(
+                "dataSimulacao >= :inicio AND dataSimulacao < :fim",
+                Parameters.with("inicio", inicio).and("fim", fim)
+        );
     }
 }

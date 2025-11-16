@@ -1,6 +1,7 @@
 package br.gov.caixa.caixaverso.mapper;
 
 import br.gov.caixa.caixaverso.dto.simulacao.SimulacaoItemRetornoDto;
+import br.gov.caixa.caixaverso.dto.simulacao.SimulacaoProdutoDiaRetornoDto;
 import br.gov.caixa.caixaverso.model.Simulacao;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -25,6 +26,15 @@ public class SimulacaoMapper {
             dto.setDataSimulacao(simulacao.getDataSimulacao().toString());
             listaDto.add(dto);
         }
+
+        return listaDto;
+    }
+
+    public List<SimulacaoProdutoDiaRetornoDto> toSimulacaoProdutoDiaRetornoList(List<Simulacao> simulacoes) {
+
+        List<SimulacaoProdutoDiaRetornoDto> listaDto = new ArrayList<SimulacaoProdutoDiaRetornoDto>();
+
+        // TODO: IMPLEMENTAR AGRUPAMENTO POR PRODUTO
 
         return listaDto;
     }
