@@ -41,6 +41,6 @@ public class SimulacaoService {
 
         List<Simulacao> simulacoes = simulacaoRepository.buscarPorData(dataConsulta);
 
-        return mapper.toSimulacaoProdutoDiaRetornoList(simulacoes);
+        return mapper.toSimulacaoProdutoDiaRetornoList(simulacoes, dataConsulta.toString());
     }
 }

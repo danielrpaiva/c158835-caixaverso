@@ -64,4 +64,3 @@ If you want to learn more about building native executables, please consult <htt
  - Endpoints 1 e 6.
  - Endpoint para adicionar investimentos
  - Tratar data passada no formato errado, sem ser YYYY-MM-DD
- - Finalizar logica de mapeamento do endpoint 3
