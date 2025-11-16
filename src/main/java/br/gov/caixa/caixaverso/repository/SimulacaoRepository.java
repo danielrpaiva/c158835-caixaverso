@@ -17,29 +17,29 @@ public class SimulacaoRepository implements PanacheRepository<Simulacao> {
         String query = "TRUE";
         Map<String, Object> params = new HashMap<>();
 
-        if (filtro.clienteId != null) {
+        if (filtro.getClienteId() != null) {
             query += " AND cliente.id = :clienteId";
-            params.put("clienteId", filtro.clienteId);
+            params.put("clienteId", filtro.getClienteId());
         }
 
-        if (filtro.produtoId != null) {
+        if (filtro.getProdutoId() != null) {
             query += " AND produto.id = :produtoId";
-            params.put("produtoId", filtro.produtoId);
+            params.put("produtoId", filtro.getProdutoId());
         }
 
-        if (filtro.produtoNome != null && !filtro.produtoNome.isBlank()) {
+        if (filtro.getProdutoNome() != null && !filtro.getProdutoNome().isBlank()) {
             query += " AND produto.nome LIKE :produtoNome";
-            params.put("produtoNome", "%" + filtro.produtoNome + "%");
+            params.put("produtoNome", "%" + filtro.getProdutoNome() + "%");
         }
 
-        if (filtro.dataInicio != null) {
+        if (filtro.getDataInicio() != null) {
             query += " AND dataSimulacao >= :dataInicio";
-            params.put("dataInicio", filtro.dataInicio);
+            params.put("dataInicio", filtro.getDataInicio());
         }
 
-        if (filtro.dataFim != null) {
+        if (filtro.getDataFim() != null) {
             query += " AND dataSimulacao <= :dataFim";
-            params.put("dataFim", filtro.dataFim);
+            params.put("dataFim", filtro.getDataFim());
         }
 
         return find(query, params).list();

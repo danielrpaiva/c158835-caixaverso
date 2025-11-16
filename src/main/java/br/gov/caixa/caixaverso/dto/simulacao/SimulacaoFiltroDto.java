@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SimulacaoFiltroDto {
-    public Long clienteId;
-    public Long produtoId;
-    public String produtoNome;
-    public LocalDateTime dataInicio;
-    public LocalDateTime dataFim;
+    private Long clienteId;
+    private Long produtoId;
+    private String produtoNome;
+    private LocalDateTime dataInicio;
+    private LocalDateTime dataFim;
 }
