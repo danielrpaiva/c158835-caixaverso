@@ -1,16 +1,16 @@
 package br.gov.caixa.caixaverso.exception.mapper;
 
 import br.gov.caixa.caixaverso.dto.RespostaExceptionDto;
-import br.gov.caixa.caixaverso.exception.TelemetriaSemIntervaloException;
+import br.gov.caixa.caixaverso.exception.TelemetriaSemIntervaloValidoException;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
 
 @Provider
-public class TelemetriaSemIntervaloExceptionMapper implements ExceptionMapper<TelemetriaSemIntervaloException> {
+public class TelemetriaSemIntervaloValidoExceptionMapper implements ExceptionMapper<TelemetriaSemIntervaloValidoException> {
 
     @Override
-    public Response toResponse(TelemetriaSemIntervaloException exception) {
+    public Response toResponse(TelemetriaSemIntervaloValidoException exception) {
 
         RespostaExceptionDto respostaExceptionDto = new RespostaExceptionDto(
                 exception.getMessage(),

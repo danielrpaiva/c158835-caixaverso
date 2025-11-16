@@ -1,7 +1,7 @@
 package br.gov.caixa.caixaverso.service;
 
 import br.gov.caixa.caixaverso.dto.telemetria.TelemetriaRetornoDto;
-import br.gov.caixa.caixaverso.exception.TelemetriaSemIntervaloException;
+import br.gov.caixa.caixaverso.exception.TelemetriaSemIntervaloValidoException;
 import br.gov.caixa.caixaverso.mapper.TelemetriaMapper;
 import br.gov.caixa.caixaverso.model.Telemetria;
 import br.gov.caixa.caixaverso.repository.TelemetriaRepository;
@@ -9,7 +9,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @ApplicationScoped
@@ -25,13 +24,18 @@ public class TelemetriaService {
 
     @Transactional
     public TelemetriaRetornoDto obterDadosTelemetria(String inicio, String fim) {
+
         if(inicio == null || fim == null) {
-            throw new TelemetriaSemIntervaloException();
+            throw new TelemetriaSemIntervaloValidoException();
+        }
+
+        if (LocalDate.parse(inicio).isAfter(LocalDate.parse(fim))) {
+            throw new TelemetriaSemIntervaloValidoException();
         }
 
         List<Telemetria> telemetrias = telemetriaRepository.buscarPorData(
                 LocalDate.parse(inicio).atStartOfDay(),
-                LocalDate.parse(fim).atStartOfDay()
+                LocalDate.parse(fim).atStartOfDay().plusDays(1).minusSeconds(1)
         );
 
         return telemetriaMapper.toTelemetriaRetornoDto(telemetrias, inicio, fim);

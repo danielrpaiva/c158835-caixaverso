@@ -1,19 +1,15 @@
 package br.gov.caixa.caixaverso.resource;
 
-import br.gov.caixa.caixaverso.dto.cliente.RegistrarClienteDto;
+import br.gov.caixa.caixaverso.dto.cliente.ClientePerfilRiscoRetornoDto;
 import br.gov.caixa.caixaverso.service.ClienteService;
+import io.quarkus.security.Authenticated;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.validation.Valid;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @RequestScoped
-@Path("/auth")
-@Consumes(MediaType.APPLICATION_JSON)
+@Path("/api/clientes")
 @Produces(MediaType.APPLICATION_JSON)
 public class ClienteResource {
 
@@ -23,10 +19,12 @@ public class ClienteResource {
         this.clienteService = clienteService;
     }
 
-    @POST
-    @Path("/registro")
-    public Response registrar(@Valid RegistrarClienteDto dto) {
-        var user = clienteService.registrarCliente(dto);
-        return Response.ok(user).build();
+    // 5. Perfil de Risco
+    @GET
+    @Path("perfil-risco/{clienteId}")
+    @Authenticated
+    public Response obterPerfilRisco(@PathParam("clienteId") Long clienteId) {
+        ClientePerfilRiscoRetornoDto perfilRisco = clienteService.obterPerfilRiscoCliente(clienteId);
+        return Response.ok(perfilRisco).build();
     }
 }

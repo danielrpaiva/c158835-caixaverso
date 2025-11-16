@@ -4,12 +4,11 @@ import br.gov.caixa.caixaverso.model.Telemetria;
 import br.gov.caixa.caixaverso.repository.TelemetriaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.container.ContainerRequestContext;
-import jakarta.ws.rs.container.ContainerRequestFilter;
-import jakarta.ws.rs.container.ContainerResponseContext;
-import jakarta.ws.rs.container.ContainerResponseFilter;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.container.*;
 import jakarta.ws.rs.ext.Provider;
 
+import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 
 @Provider
@@ -18,8 +17,10 @@ public class TelemetriaFilter implements ContainerRequestFilter, ContainerRespon
 
     private static final ThreadLocal<Long> inicioRequest = new ThreadLocal<>();
     private final TelemetriaRepository telemetriaRepository;
+    private final ResourceInfo resourceInfo;
 
-    public TelemetriaFilter(TelemetriaRepository telemetriaRepository) {
+    public TelemetriaFilter(TelemetriaRepository telemetriaRepository, ResourceInfo resourceInfo) {
+        this.resourceInfo = resourceInfo;
         this.telemetriaRepository = telemetriaRepository;
     }
 
@@ -35,7 +36,7 @@ public class TelemetriaFilter implements ContainerRequestFilter, ContainerRespon
         Long duracao = System.currentTimeMillis() - tempoInicio;
 
         Telemetria telemetria = new Telemetria();
-        telemetria.setNomeServico(contextoRequest.getUriInfo().getPath());
+        telemetria.setNomeServico(getPathTemplate(contextoRequest));
         telemetria.setMetodoHttp(contextoRequest.getMethod());
         telemetria.setStatusHttp(contextoResponse.getStatus());
         telemetria.setTempoRespostaMs(duracao);
@@ -46,4 +47,28 @@ public class TelemetriaFilter implements ContainerRequestFilter, ContainerRespon
         inicioRequest.remove();
     }
 
+    // Metodo auxiliar para obter o template do endpoint, para evitar que path params causem
+    // a telemetria interpretar o mesmo endpoint como diferentes por causa desses parametros
+    private String getPathTemplate(ContainerRequestContext contextoRequest) {
+        Class<?> resourceClass = resourceInfo.getResourceClass();
+        Method resourceMethod = resourceInfo.getResourceMethod();
+
+        if (resourceClass == null || resourceMethod == null) {
+            return contextoRequest.getUriInfo().getPath();
+        }
+
+        Path classPathAnnotation = resourceClass.getAnnotation(Path.class);
+
+        String classPath = (classPathAnnotation != null) ? classPathAnnotation.value() : "";
+
+        Path methodPathAnnotation = resourceMethod.getAnnotation(Path.class);
+        String methodPath = (methodPathAnnotation != null) ? methodPathAnnotation.value() : "";
+
+        String fullPath = "/" + classPath + "/" + methodPath;
+        String cleanedPath = fullPath
+                .replaceAll("//+", "/")
+                .replaceAll("/$", "");
+
+        return cleanedPath.isEmpty() ? "/" : cleanedPath;
+    }
 }
