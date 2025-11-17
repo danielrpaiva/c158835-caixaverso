@@ -21,4 +21,6 @@ public class ProdutoRetornoDto {
     private Double rentabilidadeAnual;
 
     private NivelRisco risco;
+
+    private Integer pontuacaoIdeal;
 }

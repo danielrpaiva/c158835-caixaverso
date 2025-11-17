@@ -8,22 +8,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class MotorRecomendacaoService {
 
-    private final InvestimentoRepository investimentoRepository;
 
-    public MotorRecomendacaoService(InvestimentoRepository investimentoRepository) {
-        this.investimentoRepository = investimentoRepository;
-    }
-
-    /*
-    * Como definido no enunciado, usei três critérios para recomendar produtos financeiros aos clientes
-    * Critério 1. Preferência por liquidez ou rentabilidade
-    * Critério 2. Frequência de movimentação
-    * Critério 3. Volume de investimentos (esse critério se correlaciona com o critério 1, pois vejo o volume para
-    * cada tipo de produto)
-    */
-
-    /* Método para definir o perfil do cliente com base
+    /* Implementacao para definir o perfil do cliente com base
      * nas porcentagens de volume de investimento dele de risco baixo, médio e alto
+     * Recaucula o seu perfil sempre que um novo investimento é registrado
      */
     public PerfilCliente definirPerfil(Cliente cliente) {
 
@@ -51,4 +39,10 @@ public class MotorRecomendacaoService {
             return PerfilCliente.MODERADO;
         }
     }
+
+    /*
+    * Implementacao para definir pontuação do cliente de 0 a 100
+    *
+    *
+    */
 }

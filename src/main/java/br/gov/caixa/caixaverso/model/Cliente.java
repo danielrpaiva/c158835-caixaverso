@@ -19,7 +19,7 @@ public class Cliente {
     private String nome;
 
     @Column(nullable = false)
-    private Integer pontuacaoRisco;
+    private Integer pontuacao;
 
     @Column(nullable = false)
     private PerfilCliente perfil;

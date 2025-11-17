@@ -1,5 +1,6 @@
 package br.gov.caixa.caixaverso.dto.cliente;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -11,20 +12,16 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class RegistrarClienteDto {
 
-    @NotNull
-    @NotEmpty
+    @NotBlank
     private String nome;
 
-    @NotNull
-    @NotEmpty
+    @NotBlank
     private String sobrenome;
 
-    @NotNull
-    @NotEmpty
+    @NotBlank
     private String email;
 
-    @NotNull
-    @NotEmpty
+    @NotBlank
     private String senha;
 
 }

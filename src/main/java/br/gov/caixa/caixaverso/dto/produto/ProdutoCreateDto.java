@@ -2,7 +2,7 @@ package br.gov.caixa.caixaverso.dto.produto;
 
 import br.gov.caixa.caixaverso.enums.NivelRisco;
 import br.gov.caixa.caixaverso.enums.TipoProduto;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,8 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ProdutoCreateDto {
 
-    @NotNull
-    @NotEmpty
+    @NotBlank
     private String nome;
 
     @NotNull
@@ -28,4 +27,6 @@ public class ProdutoCreateDto {
     @NotNull
     private NivelRisco risco;
 
+    @NotNull
+    private Integer pontuacaoIdeal;
 }

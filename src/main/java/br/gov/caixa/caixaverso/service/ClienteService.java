@@ -30,7 +30,7 @@ public class ClienteService {
         Cliente cliente = new Cliente();
         cliente.setKeycloakId(keycloakId);
         cliente.setNome(dto.getNome());
-        cliente.setPontuacaoRisco(0);
+        cliente.setPontuacao(0);
         cliente.setPerfil(PerfilCliente.CONSERVADOR);
 
         clienteRepository.persist(cliente);
@@ -49,7 +49,7 @@ public class ClienteService {
         return new ClientePerfilRiscoRetornoDto(
                 cliente.getId(),
                 cliente.getPerfil().getNome(),
-                cliente.getPontuacaoRisco(),
+                cliente.getPontuacao(),
                 Utilidades.descricaoPerfilCliente(cliente.getPerfil())
         );
     }

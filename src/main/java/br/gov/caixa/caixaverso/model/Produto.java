@@ -24,4 +24,7 @@ public class Produto {
 
     @Column(nullable = false)
     private NivelRisco risco;
+
+    @Column(nullable = false)
+    private Integer pontuacaoIdeal;
 }
