@@ -1,5 +1,6 @@
 package br.gov.caixa.caixaverso.resource;
 
+import br.gov.caixa.caixaverso.dto.investimento.InvestimentoCreateDto;
 import br.gov.caixa.caixaverso.service.InvestimentoService;
 import io.quarkus.security.Authenticated;
 import jakarta.enterprise.context.RequestScoped;
@@ -27,6 +28,15 @@ public class InvestimentoResource {
     @Authenticated
     public Response obterInvestimentosPorCliente(@PathParam("clienteId") Long clienteId) {
         return Response.ok(investimentoService.obterInvestimentosPorCliente(clienteId)).build();
+    }
+
+    @POST
+    @Authenticated
+    public Response adicionarInvestimento(InvestimentoCreateDto dto) {
+        return Response
+                .status(Response.Status.CREATED)
+                .entity(investimentoService.registrarNovoInvestimento(dto))
+                .build();
     }
 
 }

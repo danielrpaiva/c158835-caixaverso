@@ -56,7 +56,7 @@ public class InvestimentoService {
     }
 
     @Transactional
-    public void registrarNovoInvestimento(InvestimentoCreateDto dto) {
+    public InvestimentoRetornoDto registrarNovoInvestimento(InvestimentoCreateDto dto) {
 
         Produto produto = produtoRepository.findById(dto.getProdutoId());
 
@@ -86,5 +86,7 @@ public class InvestimentoService {
         }
 
         cliente.setPerfil(motorRecomendacaoService.definirPerfil(cliente));
+
+        return mapper.toInvestimentoRetornoDto(novoInvestimento);
     }
 }

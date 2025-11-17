@@ -15,15 +15,19 @@ public class InvestimentoMapper {
         List<InvestimentoRetornoDto> investimentoRetornoDtoList = new ArrayList<InvestimentoRetornoDto>();
 
         for(Investimento investimento : investimentos) {
-            InvestimentoRetornoDto dto = new InvestimentoRetornoDto();
-            dto.setId(investimento.getId());
-            dto.setTipo(investimento.getProduto().getTipo().getNome());
-            dto.setValor(investimento.getValor());
-            dto.setRentabilidade(investimento.getRentabilidadeEfetiva());
-            dto.setData(investimento.getDataInvestimento().toString());
-            investimentoRetornoDtoList.add(dto);
+            investimentoRetornoDtoList.add(toInvestimentoRetornoDto(investimento));
         }
 
         return investimentoRetornoDtoList;
+    }
+
+    public InvestimentoRetornoDto toInvestimentoRetornoDto(Investimento investimento) {
+        InvestimentoRetornoDto dto = new InvestimentoRetornoDto();
+        dto.setId(investimento.getId());
+        dto.setTipo(investimento.getProduto().getTipo().getNome());
+        dto.setValor(investimento.getValor());
+        dto.setRentabilidade(investimento.getRentabilidade());
+        dto.setData(investimento.getDataInvestimento().toString());
+        return dto;
     }
 }
