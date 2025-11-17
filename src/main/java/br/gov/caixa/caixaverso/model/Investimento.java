@@ -25,7 +25,7 @@ public class Investimento {
     private Double valor;
 
     @Column(nullable = false)
-    private Double rentabilidadeEfetiva;
+    private Double rentabilidade;
 
     @Column(nullable = false)
     private LocalDateTime dataInvestimento;

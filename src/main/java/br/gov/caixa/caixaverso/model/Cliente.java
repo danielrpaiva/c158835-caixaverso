@@ -23,4 +23,18 @@ public class Cliente {
 
     @Column(nullable = false)
     private PerfilCliente perfil;
+
+    // Esses campos são usados para performance, pois eu apenas incremento novos investimentos sem precisar recalcular tudo para definir o perfil
+    @Column(nullable = false)
+    private Double saldoRiscoBaixo = 0.0;
+
+    @Column(nullable = false)
+    private Double saldoRiscoMedio = 0.0;
+
+    @Column(nullable = false)
+    private Double saldoRiscoAlto = 0.0;
+
+    public Double getTotalInvestido() {
+        return saldoRiscoBaixo + saldoRiscoMedio + saldoRiscoAlto;
+    }
 }
