@@ -2,8 +2,6 @@ package br.gov.caixa.caixaverso.dto.produto;
 
 import br.gov.caixa.caixaverso.enums.NivelRisco;
 import br.gov.caixa.caixaverso.enums.TipoProduto;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,19 +11,14 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProdutoCreateDto {
+public class ProdutoRetornoDto {
+    private Long id;
 
-    @NotNull
-    @NotEmpty
     private String nome;
 
-    @NotNull
     private TipoProduto tipo;
 
-    @NotNull
     private Double rentabilidadeAnual;
 
-    @NotNull
     private NivelRisco risco;
-
 }
