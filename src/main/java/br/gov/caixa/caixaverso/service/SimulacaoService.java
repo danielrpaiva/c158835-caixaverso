@@ -1,10 +1,13 @@
 package br.gov.caixa.caixaverso.service;
 
-import br.gov.caixa.caixaverso.dto.simulacao.SimulacaoFiltroDto;
-import br.gov.caixa.caixaverso.dto.simulacao.SimulacaoItemRetornoDto;
-import br.gov.caixa.caixaverso.dto.simulacao.SimulacaoProdutoDiaRetornoDto;
+import br.gov.caixa.caixaverso.dto.simulacao.*;
+import br.gov.caixa.caixaverso.enums.TipoProduto;
+import br.gov.caixa.caixaverso.exception.ClienteNaoEncontradoException;
+import br.gov.caixa.caixaverso.exception.TipoProdutoInvalidoException;
 import br.gov.caixa.caixaverso.mapper.SimulacaoMapper;
+import br.gov.caixa.caixaverso.model.Cliente;
 import br.gov.caixa.caixaverso.model.Simulacao;
+import br.gov.caixa.caixaverso.repository.ClienteRepository;
 import br.gov.caixa.caixaverso.repository.SimulacaoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
@@ -16,9 +19,18 @@ import java.util.List;
 public class SimulacaoService {
 
     private final SimulacaoRepository simulacaoRepository;
+    private final ClienteRepository clienteRepository;
+    private final MotorRecomendacaoService motorRecomendacaoService;
     private final SimulacaoMapper mapper;
 
-    public SimulacaoService(SimulacaoRepository simulacaoRepository, SimulacaoMapper mapper) {
+    public SimulacaoService(
+            SimulacaoRepository simulacaoRepository,
+            SimulacaoMapper mapper,
+            ClienteRepository clienteRepository,
+            MotorRecomendacaoService motorRecomendacaoService
+    ) {
+        this.clienteRepository = clienteRepository;
+        this.motorRecomendacaoService = motorRecomendacaoService;
         this.mapper = mapper;
         this.simulacaoRepository = simulacaoRepository;
     }
@@ -42,5 +54,25 @@ public class SimulacaoService {
         List<Simulacao> simulacoes = simulacaoRepository.buscarPorData(dataConsulta);
 
         return mapper.toSimulacaoProdutoDiaRetornoList(simulacoes, dataConsulta.toString());
+    }
+
+    @Transactional
+    public SimulacaoCreateRetornoDto registrarSimulacao(SimulacaoCreateDto dto){
+
+        TipoProduto tipoProduto = TipoProduto.obterTipoProduto(dto.getTipoProduto());
+
+        if(tipoProduto == null){
+            throw new TipoProdutoInvalidoException(dto.getTipoProduto());
+        }
+
+        Cliente cliente = clienteRepository.findById(dto.getClienteId());
+
+        if (cliente == null) {
+            throw new ClienteNaoEncontradoException(dto.getClienteId());
+        }
+
+        //TODO: Logica aqui
+
+        return null;
     }
 }

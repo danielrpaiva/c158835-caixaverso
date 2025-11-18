@@ -1,5 +1,6 @@
-package br.gov.caixa.caixaverso.dto.investimento;
+package br.gov.caixa.caixaverso.dto.simulacao;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -11,19 +12,20 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class InvestimentoCreateDto {
+public class SimulacaoCreateDto {
 
     @NotNull
     private Long clienteId;
 
     @NotNull
-    private Long produtoId;
-
-    @NotNull
-    @Positive
+    @Positive(message = "O valor deve ser um número positivo.")
     private Double valor;
 
     @NotNull
-    @Positive
-    private Double rentabilidade;
+    @Positive(message = "O prazo de meses deve ser um número positivo.")
+    private Integer prazoMeses;
+
+    @NotBlank
+    private String tipoProduto;
+
 }

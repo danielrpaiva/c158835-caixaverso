@@ -32,4 +32,7 @@ public class Simulacao {
 
     @Column(nullable = false)
     private LocalDateTime dataSimulacao;
+
+    @Column(nullable = false)
+    private Double rentabilidadeEfetiva;
 }

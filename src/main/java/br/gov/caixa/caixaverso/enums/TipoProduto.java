@@ -17,4 +17,28 @@ public enum TipoProduto {
     TipoProduto(String nome) {
         this.nome = nome;
     }
+
+    public static TipoProduto obterTipoProduto(String texto) {
+
+        for (TipoProduto produto : TipoProduto.values()) {
+            if (produto.nome.equalsIgnoreCase(texto)) {
+                return produto;
+            }
+        }
+
+        return null;
+    }
+
+    public static String tipoProdutosDisponiveis(){
+
+        StringBuilder tipos = new StringBuilder();
+
+        String currTipo;
+        for(TipoProduto tipoProduto : TipoProduto.values()){
+            currTipo = tipoProduto.getNome() + "\n";
+            tipos.append(currTipo);
+        }
+
+        return tipos.toString();
+    }
 }

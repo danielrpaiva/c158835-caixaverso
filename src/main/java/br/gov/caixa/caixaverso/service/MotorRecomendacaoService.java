@@ -108,4 +108,8 @@ public class MotorRecomendacaoService {
     * TODO: Implementação para buscar o produto apropriado para simular
     *
     */
+    public Produto buscarProdutoParaSimulacao(Cliente cliente) {
+        // Implementação futura
+        return null;
+    }
 }
