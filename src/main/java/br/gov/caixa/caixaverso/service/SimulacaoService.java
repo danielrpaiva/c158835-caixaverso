@@ -6,13 +6,16 @@ import br.gov.caixa.caixaverso.exception.ClienteNaoEncontradoException;
 import br.gov.caixa.caixaverso.exception.TipoProdutoInvalidoException;
 import br.gov.caixa.caixaverso.mapper.SimulacaoMapper;
 import br.gov.caixa.caixaverso.model.Cliente;
+import br.gov.caixa.caixaverso.model.Produto;
 import br.gov.caixa.caixaverso.model.Simulacao;
 import br.gov.caixa.caixaverso.repository.ClienteRepository;
 import br.gov.caixa.caixaverso.repository.SimulacaoRepository;
+import br.gov.caixa.caixaverso.util.Utilidades;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @ApplicationScoped
@@ -71,8 +74,27 @@ public class SimulacaoService {
             throw new ClienteNaoEncontradoException(dto.getClienteId());
         }
 
-        //TODO: Logica aqui
+        Produto produtoValidado = motorRecomendacaoService.buscarProdutoParaSimulacao(cliente, tipoProduto);
 
-        return null;
+        Double valor = dto.getValor();
+        Integer prazo = dto.getPrazoMeses();
+        Double rentabilidadeAnual = produtoValidado.getRentabilidadeAnual();
+
+        Simulacao novaSimulacao = new Simulacao();
+        novaSimulacao.setCliente(cliente);
+        novaSimulacao.setProduto(produtoValidado);
+        novaSimulacao.setDataSimulacao(LocalDateTime.now());
+        novaSimulacao.setValorInvestido(valor);
+        novaSimulacao.setPrazoMeses(prazo);
+        novaSimulacao.setValorFinal(
+                Utilidades.calcularValorFinal(valor, prazo, rentabilidadeAnual)
+        );
+        novaSimulacao.setRentabilidadeEfetiva(
+                Utilidades.calcularRentabilidadeEfetiva(valor, prazo, rentabilidadeAnual)
+        );
+
+        simulacaoRepository.persist(novaSimulacao);
+
+        return mapper.toSimulacaoCreateRetornoDto(novaSimulacao);
     }
 }

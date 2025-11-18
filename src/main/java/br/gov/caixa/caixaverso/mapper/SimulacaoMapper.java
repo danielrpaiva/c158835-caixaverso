@@ -1,7 +1,6 @@
 package br.gov.caixa.caixaverso.mapper;
 
-import br.gov.caixa.caixaverso.dto.simulacao.SimulacaoItemRetornoDto;
-import br.gov.caixa.caixaverso.dto.simulacao.SimulacaoProdutoDiaRetornoDto;
+import br.gov.caixa.caixaverso.dto.simulacao.*;
 import br.gov.caixa.caixaverso.model.Simulacao;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -70,5 +69,26 @@ public class SimulacaoMapper {
         }
 
         return listaDto;
+    }
+
+    public SimulacaoCreateRetornoDto toSimulacaoCreateRetornoDto(Simulacao simulacao){
+        ProdutoValidadoSimulacaoRetornoDto produtoValidadoDto = new ProdutoValidadoSimulacaoRetornoDto();
+        produtoValidadoDto.setId(simulacao.getProduto().getId());
+        produtoValidadoDto.setNome(simulacao.getProduto().getNome());
+        produtoValidadoDto.setTipo(simulacao.getProduto().getTipo().getNome());
+        produtoValidadoDto.setRentabilidade(simulacao.getProduto().getRentabilidadeAnual());
+        produtoValidadoDto.setRisco(simulacao.getProduto().getRisco().getNome());
+
+        ResultadoSimulacaoRetornoDto resultadoSimulacaoDto = new ResultadoSimulacaoRetornoDto();
+        resultadoSimulacaoDto.setValorFinal(simulacao.getValorFinal());
+        resultadoSimulacaoDto.setPrazoMeses(simulacao.getPrazoMeses());
+        resultadoSimulacaoDto.setRentabilidadeEfetiva(simulacao.getRentabilidadeEfetiva());
+
+        SimulacaoCreateRetornoDto simulacaoCreateRetornoDto = new SimulacaoCreateRetornoDto();
+        simulacaoCreateRetornoDto.setProdutoValidado(produtoValidadoDto);
+        simulacaoCreateRetornoDto.setResultadoSimulacao(resultadoSimulacaoDto);
+        simulacaoCreateRetornoDto.setDataSimulacao(simulacao.getDataSimulacao());
+
+        return simulacaoCreateRetornoDto;
     }
 }

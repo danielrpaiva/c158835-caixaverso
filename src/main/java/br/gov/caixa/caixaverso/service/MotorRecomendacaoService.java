@@ -2,6 +2,7 @@ package br.gov.caixa.caixaverso.service;
 
 import br.gov.caixa.caixaverso.enums.NivelRisco;
 import br.gov.caixa.caixaverso.enums.PerfilCliente;
+import br.gov.caixa.caixaverso.enums.TipoProduto;
 import br.gov.caixa.caixaverso.model.Cliente;
 import br.gov.caixa.caixaverso.model.Produto;
 import br.gov.caixa.caixaverso.repository.ProdutoRepository;
@@ -108,7 +109,7 @@ public class MotorRecomendacaoService {
     * TODO: Implementação para buscar o produto apropriado para simular
     *
     */
-    public Produto buscarProdutoParaSimulacao(Cliente cliente) {
+    public Produto buscarProdutoParaSimulacao(Cliente cliente, TipoProduto tipoProduto) {
         // Implementação futura
         return null;
     }

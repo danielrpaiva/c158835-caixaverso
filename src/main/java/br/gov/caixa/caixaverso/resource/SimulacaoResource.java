@@ -1,5 +1,6 @@
 package br.gov.caixa.caixaverso.resource;
 
+import br.gov.caixa.caixaverso.dto.simulacao.SimulacaoCreateDto;
 import br.gov.caixa.caixaverso.dto.simulacao.SimulacaoFiltroDto;
 import br.gov.caixa.caixaverso.dto.simulacao.SimulacaoItemRetornoDto;
 import br.gov.caixa.caixaverso.dto.simulacao.SimulacaoProdutoDiaRetornoDto;
@@ -46,6 +47,17 @@ public class SimulacaoResource {
         List<SimulacaoItemRetornoDto> dadosRetorno = simulacaoService.buscarSimulacoes(filtro);
 
         return Response.ok(dadosRetorno).build();
+    }
+
+    // 1. Solicitação de Simulação de Investimento
+    @POST
+    @Path("/simular-investimento")
+    @Authenticated
+    public Response registrarSimulacao(SimulacaoCreateDto dto){
+        return Response
+                .status(Response.Status.CREATED)
+                .entity(simulacaoService.registrarSimulacao(dto))
+                .build();
     }
 
     // 3. Valores Simulados por Produto e Dia
