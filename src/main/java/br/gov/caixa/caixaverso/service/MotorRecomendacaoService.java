@@ -103,4 +103,9 @@ public class MotorRecomendacaoService {
     public List<Produto> buscarProdutosRecomendadosPorCliente(Cliente cliente) {
         return produtoRepository.buscarPorPontuacao(cliente.getPontuacao(), MARGEM_RECOMENDACAO);
     }
+
+   /*
+    * TODO: Implementação para buscar o produto apropriado para simular
+    *
+    */
 }

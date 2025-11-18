@@ -1,6 +1,7 @@
 package br.gov.caixa.caixaverso.resource;
 
 import br.gov.caixa.caixaverso.dto.produto.ProdutoCreateDto;
+import br.gov.caixa.caixaverso.enums.PerfilCliente;
 import br.gov.caixa.caixaverso.service.ProdutoService;
 import io.quarkus.security.Authenticated;
 import jakarta.enterprise.context.RequestScoped;
@@ -33,5 +34,21 @@ public class ProdutoResource {
     @Authenticated
     public Response listarProdutos() {
         return Response.ok(produtoService.listarProdutos()).build();
+    }
+
+    // 6. Produtos Recomendados
+    @GET
+    @Authenticated
+    @Path("/produtos-recomendados/{perfil}")
+    public Response listarProdutosRecomendadosPerfil(@PathParam("perfil") PerfilCliente perfilCliente) {
+        return Response.ok(produtoService.listarProdutosRecomendadosPerfil(perfilCliente)).build();
+    }
+
+    // Recomendação adicional só que feita pelo cliente em si ao invés do perfil
+    @GET
+    @Authenticated
+    @Path("/produtos-recomendados/{clienteId}")
+    public Response listarProdutosRecomendadosCliente(@PathParam("clienteId") Long clienteId) {
+        return Response.ok(produtoService.listarProdutosRecomendadosCliente(clienteId)).build();
     }
 }
