@@ -19,7 +19,7 @@ public class Cliente {
     private String nome;
 
     @Column(nullable = false)
-    private Integer pontuacao;
+    private Integer pontuacao; // Pontuacao do cliente de 0(muito conservador) a 100(muito agressivo)
 
     @Column(nullable = false)
     private PerfilCliente perfil;

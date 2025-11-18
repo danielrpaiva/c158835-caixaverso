@@ -6,7 +6,7 @@ import lombok.Getter;
 public enum PerfilCliente {
     CONSERVADOR("Conservador"),
     MODERADO("Moderado"),
-    AGGRESIVO("Agressivo");
+    AGRESSIVO("Agressivo");
 
     private final String nome;
 

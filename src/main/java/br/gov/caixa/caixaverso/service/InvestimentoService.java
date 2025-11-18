@@ -2,7 +2,6 @@ package br.gov.caixa.caixaverso.service;
 
 import br.gov.caixa.caixaverso.dto.investimento.InvestimentoCreateDto;
 import br.gov.caixa.caixaverso.dto.investimento.InvestimentoRetornoDto;
-import br.gov.caixa.caixaverso.enums.PerfilCliente;
 import br.gov.caixa.caixaverso.exception.ClienteNaoEncontradoException;
 import br.gov.caixa.caixaverso.exception.ProdutoNaoEncontradoException;
 import br.gov.caixa.caixaverso.mapper.InvestimentoMapper;
@@ -85,7 +84,10 @@ public class InvestimentoService {
             case ALTO -> cliente.setSaldoRiscoAlto(cliente.getSaldoRiscoAlto() + dto.getValor());
         }
 
-        cliente.setPerfil(motorRecomendacaoService.definirPerfil(cliente));
+        Integer pontuacao = motorRecomendacaoService.definirPontuacao(cliente);
+
+        cliente.setPerfil(motorRecomendacaoService.definirPerfil(pontuacao));
+        cliente.setPontuacao(pontuacao);
 
         return mapper.toInvestimentoRetornoDto(novoInvestimento);
     }
