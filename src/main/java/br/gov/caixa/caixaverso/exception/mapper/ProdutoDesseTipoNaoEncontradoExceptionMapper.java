@@ -2,7 +2,6 @@ package br.gov.caixa.caixaverso.exception.mapper;
 
 import br.gov.caixa.caixaverso.dto.RespostaExceptionDto;
 import br.gov.caixa.caixaverso.exception.ProdutoDesseTipoNaoEncontradoException;
-import br.gov.caixa.caixaverso.exception.ProdutoNaoEncontradoException;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 

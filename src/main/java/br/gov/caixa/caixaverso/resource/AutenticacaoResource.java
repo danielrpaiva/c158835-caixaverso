@@ -1,6 +1,7 @@
 package br.gov.caixa.caixaverso.resource;
 
 import br.gov.caixa.caixaverso.dto.cliente.RegistrarClienteDto;
+import br.gov.caixa.caixaverso.dto.cliente.RegistrarClienteRetornoDto;
 import br.gov.caixa.caixaverso.service.ClienteService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.validation.Valid;
@@ -26,7 +27,7 @@ public class AutenticacaoResource {
     @POST
     @Path("/registro")
     public Response registrar(@Valid RegistrarClienteDto dto) {
-        var user = clienteService.registrarCliente(dto);
+        RegistrarClienteRetornoDto user = clienteService.registrarCliente(dto);
         return Response.ok(user).build();
     }
 }
