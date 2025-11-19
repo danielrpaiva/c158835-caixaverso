@@ -20,8 +20,6 @@ public class InvestimentoResource {
         this.investimentoService = investimentoService;
     }
 
-    // TODO: Vai precisar de um endpoint POST para armazenar os investimentos
-
     // 7.Histórico de Investimentos
     @GET
     @Path("/{clienteId}")
