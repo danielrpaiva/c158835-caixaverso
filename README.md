@@ -61,8 +61,6 @@ If you want to learn more about building native executables, please consult <htt
 
 ## TODO
 
- - Endpoints 1 e 6.
- - Motor de recomendacao (em progresso)
  - Tratar data passada no formato errado, sem ser YYYY-MM-DD
  - Testes unitarios e de integração
  - Melhorar documentacao

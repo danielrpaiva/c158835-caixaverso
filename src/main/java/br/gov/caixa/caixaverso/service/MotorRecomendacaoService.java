@@ -3,6 +3,7 @@ package br.gov.caixa.caixaverso.service;
 import br.gov.caixa.caixaverso.enums.NivelRisco;
 import br.gov.caixa.caixaverso.enums.PerfilCliente;
 import br.gov.caixa.caixaverso.enums.TipoProduto;
+import br.gov.caixa.caixaverso.exception.ProdutoDesseTipoNaoEncontradoException;
 import br.gov.caixa.caixaverso.model.Cliente;
 import br.gov.caixa.caixaverso.model.Produto;
 import br.gov.caixa.caixaverso.repository.ProdutoRepository;
@@ -106,11 +107,33 @@ public class MotorRecomendacaoService {
     }
 
    /*
-    * TODO: Implementação para buscar o produto apropriado para simular
-    *
+    * Busca produto que mais se encaixa com a pontuação do cliente
     */
     public Produto buscarProdutoParaSimulacao(Cliente cliente, TipoProduto tipoProduto) {
-        // Implementação futura
-        return null;
+
+        List<Produto> produtos = produtoRepository.buscarPorTipo(tipoProduto);
+
+        if(produtos.isEmpty()){
+            throw new ProdutoDesseTipoNaoEncontradoException(tipoProduto);
+        }
+
+        Integer pontuacaoCliente = cliente.getPontuacao();
+        Produto produtoValidado = null;
+        for(Produto produto : produtos){
+
+            if(produtoValidado == null){
+                produtoValidado = produto;
+                continue;
+            }
+
+            int distanciaProdutoValidado = Math.abs(pontuacaoCliente - produtoValidado.getPontuacaoIdeal());
+            int distanciaProdutoAtual = Math.abs(pontuacaoCliente - produto.getPontuacaoIdeal());
+
+            if(distanciaProdutoAtual < distanciaProdutoValidado){
+                produtoValidado = produto;
+            }
+        }
+
+        return produtoValidado;
     }
 }
