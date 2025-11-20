@@ -62,5 +62,5 @@ If you want to learn more about building native executables, please consult <htt
 ## TODO
 
  - Tratar data passada no formato errado, sem ser YYYY-MM-DD
- - Testes unitarios e de integração
+ - Testes unitarios e de integração (Em progresso)
  - Melhorar documentacao

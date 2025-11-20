@@ -47,7 +47,7 @@ public class ProdutoResource {
     // Recomendação adicional só que feita pelo cliente em si ao invés do perfil
     @GET
     @Authenticated
-    @Path("/produtos-recomendados/{clienteId}")
+    @Path("/produtos-recomendados-cliente/{clienteId}")
     public Response listarProdutosRecomendadosCliente(@PathParam("clienteId") Long clienteId) {
         return Response.ok(produtoService.listarProdutosRecomendadosCliente(clienteId)).build();
     }
