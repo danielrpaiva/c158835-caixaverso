@@ -35,7 +35,7 @@ public enum TipoProduto {
 
         String currTipo;
         for(TipoProduto tipoProduto : TipoProduto.values()){
-            currTipo = tipoProduto.getNome() + "\n";
+            currTipo = tipoProduto.getNome() + ", ";
             tipos.append(currTipo);
         }
 

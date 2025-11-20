@@ -8,6 +8,7 @@ import br.gov.caixa.caixaverso.dto.simulacao.SimulacaoProdutoDiaRetornoDto;
 import br.gov.caixa.caixaverso.enums.NivelRisco;
 import br.gov.caixa.caixaverso.enums.TipoProduto;
 import br.gov.caixa.caixaverso.exception.ClienteNaoEncontradoException;
+import br.gov.caixa.caixaverso.exception.DataSimulacaoInvalidaException;
 import br.gov.caixa.caixaverso.exception.TipoProdutoInvalidoException;
 import br.gov.caixa.caixaverso.mapper.SimulacaoMapper;
 import br.gov.caixa.caixaverso.model.Cliente;
@@ -129,6 +130,15 @@ public class SimulacaoServiceTest {
         simulacaoService.obterSimulacoesPorProdutoEDia(null);
 
         verify(simulacaoRepository).buscarPorData(LocalDate.now());
+    }
+
+    @Test
+    void testObterSimulacoesPorProdutoEDiaFormatoDataInvalidoLancaExcecao() {
+        String dataInvalida = "15/05/2024";
+
+        assertThrows(DataSimulacaoInvalidaException.class, () ->
+                simulacaoService.obterSimulacoesPorProdutoEDia(dataInvalida)
+        );
     }
 
     @Test

@@ -3,6 +3,7 @@ package br.gov.caixa.caixaverso.service;
 import br.gov.caixa.caixaverso.dto.simulacao.*;
 import br.gov.caixa.caixaverso.enums.TipoProduto;
 import br.gov.caixa.caixaverso.exception.ClienteNaoEncontradoException;
+import br.gov.caixa.caixaverso.exception.DataSimulacaoInvalidaException;
 import br.gov.caixa.caixaverso.exception.TipoProdutoInvalidoException;
 import br.gov.caixa.caixaverso.mapper.SimulacaoMapper;
 import br.gov.caixa.caixaverso.model.Cliente;
@@ -49,6 +50,10 @@ public class SimulacaoService {
 
         LocalDate dataConsulta;
         if (data != null) {
+            if(!data.matches("^\\d{4}-\\d{2}-\\d{2}$")){
+                throw new DataSimulacaoInvalidaException();
+            }
+
             dataConsulta = LocalDate.parse(data);
         } else {
             dataConsulta = LocalDate.now();
