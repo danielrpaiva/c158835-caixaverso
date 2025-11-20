@@ -63,8 +63,3 @@ Authorization (Bearer) de qualquer outro endpoint da aplicação.
 
 Último report de cobertura de testes utilizando jacoco indicou cobertura de 76%:
 ![img.png](img.png)
-
-## TODO
-
- - Testes de integração (Em progresso)
- - Melhorar documentacao

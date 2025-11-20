@@ -10,6 +10,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 
 @Path("api/telemetria")
 @RequestScoped
@@ -23,6 +24,10 @@ public class TelemetriaResource {
     }
 
     // 4. Dados de Telemetria
+    @Operation(
+            summary = "4. Dados de Telemetria",
+            description = "Endpoint 4 do enunciado"
+    )
     @GET
     @Authenticated
     public Response obterDadosTelemetria(

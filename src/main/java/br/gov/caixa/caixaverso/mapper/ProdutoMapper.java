@@ -17,6 +17,7 @@ public class ProdutoMapper {
         dto.setTipo(produto.getTipo());
         dto.setRentabilidadeAnual(produto.getRentabilidadeAnual());
         dto.setRisco(produto.getRisco());
+        dto.setPontuacaoIdeal(produto.getPontuacaoIdeal());
         return dto;
     }
 

@@ -7,6 +7,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 
 @RequestScoped
 @Path("/api/clientes")
@@ -20,6 +21,10 @@ public class ClienteResource {
     }
 
     // 5. Perfil de Risco
+    @Operation(
+            summary = "5. Perfil de Risco",
+            description = "Endpoint 5 do enunciado"
+    )
     @GET
     @Path("perfil-risco/{clienteId}")
     @Authenticated

@@ -10,6 +10,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,6 +28,10 @@ public class SimulacaoResource {
     }
 
     // 2. Histórico de Simulações Realizadas
+    @Operation(
+            summary = "2. Histórico de Simulações Realizadas",
+            description = "Endpoint 2 do enunciado"
+    )
     @GET
     @Authenticated
     public Response buscarSimulacoes(
@@ -50,6 +55,10 @@ public class SimulacaoResource {
     }
 
     // 1. Solicitação de Simulação de Investimento
+    @Operation(
+            summary = "1. Solicitação de Simulação de Investimento",
+            description = "Endpoint 1 do enunciado"
+    )
     @POST
     @Path("/simular-investimento")
     @Authenticated
@@ -61,6 +70,10 @@ public class SimulacaoResource {
     }
 
     // 3. Valores Simulados por Produto e Dia
+    @Operation(
+            summary = "3. Valores Simulados por Produto e Dia",
+            description = "Endpoint 3 do enunciado"
+    )
     @GET
     @Path("/por-produto-dia")
     @Authenticated

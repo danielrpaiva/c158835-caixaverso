@@ -8,6 +8,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 
 @RequestScoped
 @Path("/api/produtos")
@@ -37,6 +38,10 @@ public class ProdutoResource {
     }
 
     // 6. Produtos Recomendados
+    @Operation(
+            summary = "6. Produtos Recomendados",
+            description = "Endpoint 6 do enunciado"
+    )
     @GET
     @Authenticated
     @Path("/produtos-recomendados/{perfil}")

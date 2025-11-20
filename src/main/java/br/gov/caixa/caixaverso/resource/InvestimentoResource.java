@@ -7,6 +7,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 
 @RequestScoped
 @Path("/api/investimentos")
@@ -20,7 +21,11 @@ public class InvestimentoResource {
         this.investimentoService = investimentoService;
     }
 
-    // 7.Histórico de Investimentos
+    // 7. Histórico de Investimentos
+    @Operation(
+            summary = "7. Histórico de Investimentos",
+            description = "Endpoint 7 do enunciado"
+    )
     @GET
     @Path("/{clienteId}")
     @Authenticated

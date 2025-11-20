@@ -42,6 +42,7 @@ public class ProdutoService {
         novoProduto.setTipo(dto.getTipo());
         novoProduto.setRisco(dto.getRisco());
         novoProduto.setRentabilidadeAnual(dto.getRentabilidadeAnual());
+        novoProduto.setPontuacaoIdeal(dto.getPontuacaoIdeal());
 
         produtoRepository.persist(novoProduto);
 
