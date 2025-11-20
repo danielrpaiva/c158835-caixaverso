@@ -14,18 +14,18 @@ public class Telemetria {
     private Long id;
 
     @Column(nullable = false)
-    public String nomeServico;
+    private String nomeServico;
 
     @Column(nullable = false)
-    public String metodoHttp;
+    private String metodoHttp;
 
     @Column(nullable = false)
-    public Integer statusHttp;
+    private Integer statusHttp;
 
     @Column(nullable = false)
-    public Long tempoRespostaMs;
+    private Long tempoRespostaMs;
 
     @Column(nullable = false)
-    public LocalDateTime dataChamada;
+    private LocalDateTime dataChamada;
 
 }

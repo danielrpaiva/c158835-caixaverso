@@ -15,27 +15,27 @@ public class TelemetriaTest {
 
         Telemetria tel1 = new Telemetria();
         tel1.setId(1L);
-        tel1.nomeServico = "ServicoClientes";
-        tel1.metodoHttp = "GET";
-        tel1.statusHttp = 200;
-        tel1.tempoRespostaMs = 150L;
-        tel1.dataChamada = data;
+        tel1.setNomeServico("ServicoClientes");
+        tel1.setMetodoHttp("GET");
+        tel1.setStatusHttp(200);
+        tel1.setTempoRespostaMs(150L);
+        tel1.setDataChamada(data);
 
         Telemetria tel1Alt = new Telemetria();
         tel1Alt.setId(1L);
-        tel1Alt.nomeServico = "ServicoClientes";
-        tel1Alt.metodoHttp = "GET";
-        tel1Alt.statusHttp = 200;
-        tel1Alt.tempoRespostaMs = 150L;
-        tel1Alt.dataChamada = data;
+        tel1Alt.setNomeServico("ServicoClientes");
+        tel1Alt.setMetodoHttp("GET");
+        tel1Alt.setStatusHttp(200);
+        tel1Alt.setTempoRespostaMs(150L);
+        tel1Alt.setDataChamada(data);
 
         Telemetria tel2 = new Telemetria();
         tel2.setId(2L);
-        tel2.nomeServico = "ServicoClientes";
-        tel2.metodoHttp = "GET";
-        tel2.statusHttp = 200;
-        tel2.tempoRespostaMs = 150L;
-        tel2.dataChamada = data;
+        tel2.setNomeServico("ServicoClientes");
+        tel2.setMetodoHttp("GET");
+        tel2.setStatusHttp(200);
+        tel2.setTempoRespostaMs(150L);
+        tel2.setDataChamada(data);
 
         assertEquals(tel1, tel1Alt);
         assertNotEquals(tel1, tel2);
