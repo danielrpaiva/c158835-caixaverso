@@ -29,7 +29,9 @@ public class TelemetriaService {
             throw new TelemetriaSemIntervaloValidoException();
         }
 
-        if (LocalDate.parse(inicio).isAfter(LocalDate.parse(fim))) {
+        if (!inicio.matches("^\\d{4}-\\d{2}-\\d{2}$")
+            || !fim.matches("^\\d{4}-\\d{2}-\\d{2}$")
+            || LocalDate.parse(inicio).isAfter(LocalDate.parse(fim))) {
             throw new TelemetriaSemIntervaloValidoException();
         }
 
