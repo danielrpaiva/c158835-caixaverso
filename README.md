@@ -1,63 +1,68 @@
 # c158835-caixaverso
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## Rodando a aplicação:
 
-## Running the application in dev mode
-
-You can run your application in dev mode that enables live coding using:
+Para rodar a aplicação abra o terminal na raiz do projeto e execute o comando:
 
 ```shell script
-./mvnw quarkus:dev
+  docker compose up --build
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+Após a aplicação finalizar a inicialização dos containers, aguarde 15-20 segundos
+para dar tempo de iniciar tudo após os containers inicializarem.
 
-## Packaging and running the application
+## Documentação
 
-The application can be packaged using:
+Pode acessar o swagger pelo navegador acessando:
 
-```shell script
-./mvnw package
+<http://localhost:8080/q/swagger-ui>
+
+## Autenticação
+
+Todas as apis estão com autenticação OAuth2 habilitada, portanto
+é necessário criar um usuário acessando o endpoint (está listado no swagger com o corpo especificado):
+
+POST http://localhost:8080/auth/registro
+
+Corpo:
+```script
+{
+  "nome": "Joao",
+  "sobrenome": "Silva",
+  "email": "joao.silva@caixa.gov.br",
+  "senha": "abc123"
+}
 ```
+ - Após criação do usuário é necessário se autenticar, dentro do próprio swagger no
+botão "Authorize" localizado no canto superior direito, já na primeira opção:
+"SecurityScheme (OAuth2, authorization_code)" basta digitar no campo 
+client_id o valor "quarkus-app" (ignore os demais campos e clique em Authorize logo abaixo).
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+- Será redirecionado para uma tela do Keycloak, após isso basta digitar o email cadastrado
+como username e a senha que será redirecionado de volta ao swagger já autenticado.
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+- O Token tem uma duração de 5 minutos, se expirar e começar a receber 401 
+basta se autenticar novamente.
 
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
+- Caso prefira testar as APIs pelo Postman, após realizar o registro, chame o endpoint:
+POST <http://localhost:8180/realms/quarkus-app/protocol/openid-connect/token>, com
+o corpo em formato x-www-form-urlencoded e os campos especificados no cURL abaixo:
+```script
+curl --location 'http://localhost:8180/realms/quarkus-app/protocol/openid-connect/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'grant_type=password' \
+--data-urlencode 'client_id=quarkus-app' \
+--data-urlencode 'username=<SEU_EMAIL_AQUI>' \
+--data-urlencode 'password=<SUA_SENHA_AQUI>'
 ```
+ - Esse endpoint retornará o access_token que pode ser passado no header de 
+Authorization (Bearer) de qualquer outro endpoint da aplicação.
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+## Testes
 
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/c158835-caixaverso-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Related Guides
-
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-- REST Jackson ([guide](https://quarkus.io/guides/rest#json-serialisation)): Jackson serialization support for Quarkus REST. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it
-- Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplify your persistence code for Hibernate ORM via the active record or the repository pattern
+Último report de cobertura de testes utilizando jacoco indicou cobertura de 76%:
+![img.png](img.png)
 
 ## TODO
 
